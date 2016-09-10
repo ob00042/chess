@@ -2,7 +2,7 @@ module Chess
 
 	class Cell
 
-		attr_accessor :value, :color, :player
+		attr_accessor :value, :player
 
 		def initialize(value = "")
 			@value = value
