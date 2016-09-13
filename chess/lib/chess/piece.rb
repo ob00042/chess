@@ -2,7 +2,7 @@ module Chess
 
 	class Piece
 
-		attr_reader :color, :name, :white_king, :white_queen, :white_bishop, :white_knight, :white_rook, :white_pawn
+		attr_reader :color, :name, :white_king, :white_queen, :white_bishop, :white_knight, :white_rook, :white_pawn, :black_king, :black_queen, :black_bishop, :black_knight, :black_rook, :black_pawn
 
 		def initialize(color = "", name = "")
 			@color = color
@@ -24,10 +24,251 @@ module Chess
 			@black_pawn = Piece.new(:black, :BP)
 		end
 
-		def place_in_board
+		def move_piece(x, y)
+			piece_name = Board.get_cell(x, y).vallue
+			case piece_name
+			when "" then puts "This is an empty cell"
+			when :WP then White_Pawn.move(x, y)
+			when :WR then Rook.move(x, y, :WR)
+			when :BR then Rook.move(x, y, :BR)
+		end
+
+		def check_path(x, y, xx, yy) # can refactor the last bit about checking if the player is the same in the begining, not in the end of each case!!!!
+
+			cell_player = Board.get_cell(x, y).player
+
+			if xx >= x && yy >= y # both new coordinates are larger than older ones
+				if x == xx && y != yy # x is the same, y changes
+					z = y+1
+					while z < yy
+						if Board.get_cell(x, z).value != ""
+							puts "You can't move there"
+							break
+						end
+						z += 1
+					end
+					if Board.get_cell(x, yy).player == cell_player
+						puts "You can't move there"
+						break
+					end 
+				elsif y == yy && x != xx # y is the same, x changes
+					z = x + 1
+					while x < xx
+						if Board.get_cell(z, y).value != ""
+							puts "You can't move there"
+							break
+						end
+						z += 1
+					end
+					if Board.get_cell(xx, y).player == cell_player
+						puts "You can't move there"
+						break
+					end
+				else # both x and y change
+					if xx - x != yy - y #check if x and y change by the same amount ie. diagonal
+						puts "You can't make this move"
+						break
+					else
+						z = x + 1
+						m = y + 1
+						while z < xx && m < yy
+							if Board.get_cell(z, m).value != ""
+								puts "You can't move there"
+								break
+							end
+							z += 1
+							m += 1
+						end
+						if Board.get_cell(xx, yy).player == cell_player
+							puts "You can't move there"
+							break
+						end
+					end
+				end
+			elsif xx <= x && yy <= y # both new coordinates are smaller than the older ones
+				if x == xx && y != yy # x stays the same, y changes
+					z = y - 1
+					while z > yy
+						if Board.get_cell(x, z).value != ""
+							puts "You can't move there"
+							break
+						end
+						z -= 1
+					end
+					if Board.get_cell(xx, yy).player == cell_player
+						puts "You can't move there"
+						break
+					end
+				elsif y == yy && x != xx # y satys the same, x changes
+					z = x - 1
+					while z > xx
+						if Board.get_cell(z, y).value != ""
+							puts "You can't move there"
+							break
+						end
+						z -= 1
+					end
+					if Board.get_cell(xx, yy).player == cell_player
+						puts "You can't move there"
+						break
+					end
+				else # both x and y change
+					if x - xx != y - yy #check they change the same ie diagonal
+						puts "You can't move there"
+						break
+					else
+						z = x - 1
+						m = y - 1
+						while z > xx && m > yy
+							if Board.get_cell(z, m).value != ""
+								puts "You can't move there"
+								break
+							end
+							z -= 1
+							m -= 1
+						end
+						if Board.get_cell(xx, yy).player == cell_player
+							puts "You can't move there"
+							break
+						end
+					end
+				end
+			elsif xx >= x && yy <= y # new x coordinate is bigger, and new y is smaller
+				if x == xx && y != yy # x is the same, and y is smaller
+					z = y - 1
+					while z > yy
+						if Board.get_cell(x, z).value != ""
+							puts "You can't move there"
+							break
+						end
+						z -= 1
+					end
+					if Board.get_cell(xx, yy).player == cell_player
+						puts "You can't move there"
+						break
+					end
+				elsif y == yy && x != xx # y is the same and x is bigger
+					z = x + 1
+					while z < xx
+						if Board.get_cell(z, y).value != ""
+							puts "You can't move there"
+							break
+						end
+						z += 1
+					end
+					if Board.get_cell(xx, yy).player == cell_player
+						puts "You can't move there"
+						break
+					end
+				else # y is smaller and x is bigger
+					if y - yy != xx - x #check for diagonal
+						puts "You can't move there"
+						break
+					else
+						z = x + 1
+						m = y - 1
+						while z < xx && m > yy
+							if Board.get_cell(z, m).value != ""
+								puts "You can't move there"
+								break
+							end
+							z += 1
+							m -= 1
+						end
+						if Board.get_cell(xx, yy).player == cell_player
+							puts "You can't move there"
+							break
+						end
+					end
+				end
+			elsif xx <= x && yy >= y # new x is smaller and new y is bigger
+				if x == xx && y != yy # x is the same and y is bigger
+					z = y + 1
+					while z < yy
+						if Board.get_cell(x, z).value != ""
+							puts "You can't move there"
+							break
+						end
+						z += 1
+					end
+					if Board.get_cell(xx, yy).player == cell_player
+						puts "You can't move there"
+						break
+					end
+				elsif y == yy && x != xx # y is the same and x is smaller
+					z = x - 1
+					while z > xx
+						if Board.get_cell(z, y).value != ""
+							puts "You can't move there"
+							break
+						end
+						z -= 1
+					end
+					if Board.get_cell(xx, yy).player == cell_player
+						puts "You can't move there"
+						break
+					end
+				else # y is bigger and x is smaller
+					if yy - y != x - xx # check for diagonal
+						puts "You can't move there"
+						break
+					else
+						z = x - 1
+						m = y + 1
+						while z > xx && y < yy
+							if Board.get_cell(z, m).value != ""
+								puts "You can't move there"
+								break
+							end
+							z -= 1
+							m += 1
+						end
+						if Board.get_cell(xx, yy).player == cell_player
+							puts "You can't move there"
+							break
+						end
+					end
+				end
+					
+			end
 
 		end
 
+	end
+
+	class White_Pawn < Piece
+
+		def move(x, y)
+			Board.set_cell(x+1, y, :WP)
+			Board.set_cell(x, y, "")
+		end
+
+	end
+
+	class Rook < Piece 
+
+		def move(x, y, type) # DO AGAIN!!!!!!
+			puts "Type CAPITAL 'X' or 'Y' depending on the direction you want to move"
+			direction = gets.chomp
+			if direction = "X"
+				puts "Give the new X coordinate"
+				new_x = gets.chomp
+				new_x = new_x.to_i
+				Piece.check_path(x, y, new_x, y)
+				Board.set_cell(new_x, y, type)
+				Board.set_cell(x, y, "")
+			elsif direction = "Y"
+				puts "Give the new Y coordinate"
+				new_y = gets.chomp
+				new_y = new_y.to_i
+				Board.set_cell(x, new_y, type)
+				Board.set_cell(x, y, "")
+			else
+				puts "You made a mistake declaring the direction, try again"
+				Rook.move(x, y, type)
+			end	
+			
+		end
 
 	end
 

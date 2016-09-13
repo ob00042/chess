@@ -32,68 +32,28 @@ module Chess
 				expect(@cell.player).to eq :empty
 			end
 
-			it "gives player_white for White Pawn 1" do
-				allow(@cell.value = :WP1)
+			it "gives player_white for White Pawn" do
+				allow(@cell.value = :WP)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_white
 			end
 
-			it "gives player_white for White Pawn 2" do
-				allow(@cell.value =:WP2)
+			
+
+			it "gives player_white for White Rook" do
+				allow(@cell.value = :WR)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_white
 			end
 
-			it "gives player_white for White Pawn 3" do
-				allow(@cell.value = :WP3)
+			it "gives player_white for White Knight" do
+				allow(@cell.value = :WK)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_white
 			end
 
-			it "gives player_white for White Pawn 4" do
-				allow(@cell.value = :WP4)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Pawn 5" do
-				allow(@cell.value = :WP5)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Pawn 6" do
-				allow(@cell.value = :WP6)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Pawn 7" do
-				allow(@cell.value = :WP7)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Pawn 8" do
-				allow(@cell.value = :WP8)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Rook 1" do
-				allow(@cell.value = :WR1)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Knight 1" do
-				allow(@cell.value = :WK1)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Bishop 1" do
-				allow(@cell.value = :WB1)
+			it "gives player_white for White Bishop" do
+				allow(@cell.value = :WB)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_white
 			end
@@ -110,86 +70,26 @@ module Chess
 				expect(@cell.player).to eq :player_white
 			end
 
-			it "gives player_white for White Bishop 2" do
-				allow(@cell.value = :WB2)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Knight 2" do
-				allow(@cell.value = :WK2)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_white for White Rook 2" do
-				allow(@cell.value = :WR2)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_white
-			end
-
-			it "gives player_black for Black Pawn 1" do
-				allow(@cell.value = :BP1)
+			it "gives player_black for Black Pawn" do
+				allow(@cell.value = :BP)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_black
 			end
 
-			it "gives player_black for Black Pawn 2" do
-				allow(@cell.value =:BP2)
+			it "gives player_black for Black Rook" do
+				allow(@cell.value = :BR)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_black
 			end
 
-			it "gives player_black for Black Pawn 3" do
-				allow(@cell.value = :BP3)
+			it "gives player_black for Black Knight" do
+				allow(@cell.value = :BK)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_black
 			end
 
-			it "gives player_black for Black Pawn 4" do
-				allow(@cell.value = :BP4)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Pawn 5" do
-				allow(@cell.value = :BP5)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Pawn 6" do
-				allow(@cell.value = :BP6)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Pawn 7" do
-				allow(@cell.value = :BP7)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Pawn 8" do
-				allow(@cell.value = :BP8)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Rook 1" do
-				allow(@cell.value = :BR1)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Knight 1" do
-				allow(@cell.value = :BK1)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Bishop 1" do
-				allow(@cell.value = :BB1)
+			it "gives player_black for Black Bishop" do
+				allow(@cell.value = :BB)
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_black
 			end
@@ -205,25 +105,7 @@ module Chess
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :player_black
 			end
-
-			it "gives player_black for Black Bishop 2" do
-				allow(@cell.value = :BB2)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Knight 2" do
-				allow(@cell.value = :BK2)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
-			it "gives player_black for Black Rook 2" do
-				allow(@cell.value = :BR2)
-				allow(@cell.cell_player)
-				expect(@cell.player).to eq :player_black
-			end
-
+			
 			it "gives empty for an empty cell" do
 				allow(@cell.cell_player)
 				expect(@cell.player).to eq :empty
