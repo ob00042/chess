@@ -35,6 +35,7 @@ module Chess
 			case piece_name
 			when "" then puts "This is an empty cell"
 			when :WP then White_Pawn.move(x, y)
+			when :BP then Black_Pawn.moves(x, y)
 			when :WR then Rook.move(x, y, :WR)
 			when :BR then Rook.move(x, y, :BR)
 			when :WB then Bishop.move(x, y, :WB)
@@ -277,13 +278,103 @@ module Chess
 	class White_Pawn < Piece # NEED TO ADD ATTACK!!!!!
 
 		def move(x, y)
-			if Piece.check_path(x, y, x+1, y)
-				Board.set_cell(x+1, y, :WP)
+			puts "You can move one cell ahead, or attack in a diagonal cell."
+			puts "If you want to move type CAPITAL 'M', else type CAPITAL 'A'."
+			input = gets.chomp
+			if input == "M"
+				White_Pawn.move_white_pawn(x, y)
+			elsif input == "A"
+				White_Pawn.attack(x, y)
+			else
+				puts "You gave the wrong input."
+				Piece.move_piece
+			end
+		end
+
+		def move_white_pawn(x, y)
+			if Piece.check_path(x, y, x, y + 1)
+				Board.set_cell(x, y + 1, :WP)
 				Board.set_cell(x, y, "")
 			else
 				puts "Try again"
 				Piece.move_piece
 			end
+		end
+
+		def attack(x, y)
+			cell_player = Board.get_cell(x, y).player
+			puts "Where do you want to attack, Right or Left? ('R'/'L')"
+			direction = gets.chomp
+			if direction == "R"
+				if Board.get_cell(x + 1, y + 1).player != cell_player
+					Board.set_cell(x + 1, y + 1, :WP)
+					Board.set_cell(x, y, "")
+				else
+					puts "You can't attack here!"
+					Piece.move_piece
+				end
+			elsif direction == "L"
+				if Board.get_cell(x - 1, y + 1).player != cell_player
+					Board.set_cell(x - 1, y + 1, :WP)
+					Board.set_cell(x, y, "")
+				else
+					puts "You can't attack here!"
+					Piece.move_piece
+				end
+			end
+					
+		end
+
+	end
+
+	class Black_Pawn < Piece
+
+		def move(x, y)
+			puts "You can move one cell ahead, or attack in a diagonal cell."
+			puts "If you want to move type CAPITAL 'M', else type CAPITAL 'A'."
+			input = gets.chomp
+			if input == "M"
+				Black_Pawn.move_black_pawn(x, y)
+			elsif input == "A"
+				Black_Pawn.attack(x, y)
+			else
+				puts "You gave the wrong input."
+				Piece.move_piece
+			end
+		end
+
+		def move_black_pawn(x, y)
+			if Piece.check_path(x, y, x, y - 1)
+				Board.set_cell(x, y - 1, :BP)
+				Board.set_cell(x, y, "")
+			else
+				puts "Try again"
+				Piece.move_piece
+			end
+		end
+
+		def attack(x, y)
+			cell_player = Board.get_cell(x, y).player
+			puts "Where do you want to attack, Right or Left? ('R'/'L')"
+			direction = gets.chomp
+			if direction == "R"
+				if Board.get_cell(x + 1, y - 1).player != cell_player
+					Board.set_cell(x + 1, y - 1, :BP)
+					Board.set_cell(x, y, "")
+				else
+					puts "You can't attack here!"
+					Piece.move_piece
+				end
+			elsif direction == "L"
+				if Board.get_cell(x - 1, y - 1).player != cell_player
+					Board.set_cell(x - 1, y - 1, :BP)
+					Board.set_cell(x, y, "")
+				else
+					puts "You can't attack here!"
+					Piece.move_piece
+				end
+			end
+					
 		end
 
 	end
