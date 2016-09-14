@@ -43,6 +43,8 @@ module Chess
 			when :BK then Knight.move(x, y, :BK)
 			when :WQ then Queen.move(x, y, :WQ)
 			when :BQ then Queen.move(x, y, :BQ)
+			when :WG then King.move(x, y, :WG)
+			when :BG then King.move(x, y, :BG)
 		end
 
 		def check_path(x, y, xx, yy) # can refactor the last bit about checking if the player is the same in the begining, not in the end of each case!!!!
@@ -388,6 +390,39 @@ module Chess
 			if Piece.check_path(x, y, new_x, new_y)
 				Board.set_cell(new_x, new_y, type)
 				Board.set_cell(x, y, "")
+			end
+		end
+
+	end
+
+	class King < Piece
+
+		def move(x, y, type)
+			puts "Careful when you move the King!"
+			cell_player = Board.get_cell(x, y).player
+			possible_moves = []
+			possible_combinations = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]]
+			possible_combinations.each do |combination|
+				new_x = combination[0] + x
+				new_y = combination[1] + y
+				if new_x >= 0 && new_x <= 7 && new_y >= 0 && new_y <= 7 && Board.get_cell(new_x, new_y).player != cell_player
+					possible_moves << [new_x, new_y]
+				end 
+			end
+			puts "The possible moves are: "
+			puts possible_moves
+			puts "Chose a new X coordinate"
+			new_x = gets.chomp
+			new_x = new_x.to_i
+			puts "Chose a new Y coordinate"
+			new_y = gets.chomp
+			new_y = new_y.to_i
+			if possible_combinations.include? [new_x, new_y]
+				Board.set_cell(new_x, new_y, type)
+				Board.set_cell(x, y, "")
+			else
+				puts "You did not chose one of the possibble combinations, try again: "
+				Piece.move_piece
 			end
 		end
 
