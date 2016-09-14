@@ -41,6 +41,8 @@ module Chess
 			when :BB then Bishop.move(x, y, :BB)
 			when :WK then Knight.move(x, y, :WK)
 			when :BK then Knight.move(x, y, :BK)
+			when :WQ then Queen.move(x, y, :WQ)
+			when :BQ then Queen.move(x, y, :BQ)
 		end
 
 		def check_path(x, y, xx, yy) # can refactor the last bit about checking if the player is the same in the begining, not in the end of each case!!!!
@@ -270,7 +272,7 @@ module Chess
 
 	end
 
-	class White_Pawn < Piece
+	class White_Pawn < Piece # NEED TO ADD ATTACK!!!!!
 
 		def move(x, y)
 			if Piece.check_path(x, y, x+1, y)
@@ -368,6 +370,24 @@ module Chess
 			else
 				puts "You did not chose one of the possibble combinations, try again: "
 				Piece.move_piece
+			end
+		end
+
+	end
+
+	class Queen < Piece
+
+		def move(x, y, type)
+			puts "You can move the Queen in straight or diagonal lines"
+			puts "Give new X coordinate"
+			new_x = gets.chomp
+			new_x = new_x.to_i
+			puts "Give new Y coordinate"
+			new_y = gets.chomp
+			new_y = new_y.to_i
+			if Piece.check_path(x, y, new_x, new_y)
+				Board.set_cell(new_x, new_y, type)
+				Board.set_cell(x, y, "")
 			end
 		end
 
