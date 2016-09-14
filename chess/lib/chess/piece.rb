@@ -33,7 +33,6 @@ module Chess
 			y = y.to_i
 			piece_name = Board.get_cell(x, y).vallue
 			case piece_name
-			when "" then puts "This is an empty cell"
 			when :WP then White_Pawn.move(x, y)
 			when :BP then Black_Pawn.moves(x, y)
 			when :WR then Rook.move(x, y, :WR)
@@ -46,6 +45,10 @@ module Chess
 			when :BQ then Queen.move(x, y, :BQ)
 			when :WG then King.move(x, y, :WG)
 			when :BG then King.move(x, y, :BG)
+			else
+				puts "You chose an epmty cell, try again"
+				Piece.move_piece
+			end
 		end
 
 		def check_path(x, y, xx, yy) # can refactor the last bit about checking if the player is the same in the begining, not in the end of each case!!!!
