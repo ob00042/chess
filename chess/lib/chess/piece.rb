@@ -24,7 +24,13 @@ module Chess
 			@black_pawn = Piece.new(:black, :BP)
 		end
 
-		def move_piece(x, y)
+		def move_piece
+			puts "Give the X coordinate of the piece you want to move"
+			x = gets.chomp
+			x = x.to_i
+			puts "Give the Y coordinate of the piece you want to move"
+			y = gets.chomp
+			y = y.to_i
 			piece_name = Board.get_cell(x, y).vallue
 			case piece_name
 			when "" then puts "This is an empty cell"
@@ -43,45 +49,51 @@ module Chess
 					while z < yy
 						if Board.get_cell(x, z).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z += 1
 					end
 					if Board.get_cell(x, yy).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end 
 				elsif y == yy && x != xx # y is the same, x changes
 					z = x + 1
 					while x < xx
 						if Board.get_cell(z, y).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z += 1
 					end
 					if Board.get_cell(xx, y).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end
 				else # both x and y change
 					if xx - x != yy - y #check if x and y change by the same amount ie. diagonal
 						puts "You can't make this move"
-						break
+						return false
 					else
 						z = x + 1
 						m = y + 1
 						while z < xx && m < yy
 							if Board.get_cell(z, m).value != ""
 								puts "You can't move there"
-								break
+								return false
 							end
 							z += 1
 							m += 1
 						end
 						if Board.get_cell(xx, yy).player == cell_player
 							puts "You can't move there"
-							break
+							return false
+						else
+							return true
 						end
 					end
 				end
@@ -91,45 +103,51 @@ module Chess
 					while z > yy
 						if Board.get_cell(x, z).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z -= 1
 					end
 					if Board.get_cell(xx, yy).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end
 				elsif y == yy && x != xx # y satys the same, x changes
 					z = x - 1
 					while z > xx
 						if Board.get_cell(z, y).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z -= 1
 					end
 					if Board.get_cell(xx, yy).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end
 				else # both x and y change
 					if x - xx != y - yy #check they change the same ie diagonal
 						puts "You can't move there"
-						break
+						return false
 					else
 						z = x - 1
 						m = y - 1
 						while z > xx && m > yy
 							if Board.get_cell(z, m).value != ""
 								puts "You can't move there"
-								break
+								return false
 							end
 							z -= 1
 							m -= 1
 						end
 						if Board.get_cell(xx, yy).player == cell_player
 							puts "You can't move there"
-							break
+							return false
+						else
+							return true
 						end
 					end
 				end
@@ -139,45 +157,51 @@ module Chess
 					while z > yy
 						if Board.get_cell(x, z).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z -= 1
 					end
 					if Board.get_cell(xx, yy).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end
 				elsif y == yy && x != xx # y is the same and x is bigger
 					z = x + 1
 					while z < xx
 						if Board.get_cell(z, y).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z += 1
 					end
 					if Board.get_cell(xx, yy).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end
 				else # y is smaller and x is bigger
 					if y - yy != xx - x #check for diagonal
 						puts "You can't move there"
-						break
+						return false
 					else
 						z = x + 1
 						m = y - 1
 						while z < xx && m > yy
 							if Board.get_cell(z, m).value != ""
 								puts "You can't move there"
-								break
+								return false
 							end
 							z += 1
 							m -= 1
 						end
 						if Board.get_cell(xx, yy).player == cell_player
 							puts "You can't move there"
-							break
+							return false
+						else
+							return true
 						end
 					end
 				end
@@ -187,45 +211,51 @@ module Chess
 					while z < yy
 						if Board.get_cell(x, z).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z += 1
 					end
 					if Board.get_cell(xx, yy).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end
 				elsif y == yy && x != xx # y is the same and x is smaller
 					z = x - 1
 					while z > xx
 						if Board.get_cell(z, y).value != ""
 							puts "You can't move there"
-							break
+							return false
 						end
 						z -= 1
 					end
 					if Board.get_cell(xx, yy).player == cell_player
 						puts "You can't move there"
-						break
+						return false
+					else
+						return true
 					end
 				else # y is bigger and x is smaller
 					if yy - y != x - xx # check for diagonal
 						puts "You can't move there"
-						break
+						return false
 					else
 						z = x - 1
 						m = y + 1
 						while z > xx && y < yy
 							if Board.get_cell(z, m).value != ""
 								puts "You can't move there"
-								break
+								return false
 							end
 							z -= 1
 							m += 1
 						end
 						if Board.get_cell(xx, yy).player == cell_player
 							puts "You can't move there"
-							break
+							return false
+						else
+							return true
 						end
 					end
 				end
@@ -239,36 +269,70 @@ module Chess
 	class White_Pawn < Piece
 
 		def move(x, y)
-			Board.set_cell(x+1, y, :WP)
-			Board.set_cell(x, y, "")
+			if Piece.check_path(x, y, x+1, y)
+				Board.set_cell(x+1, y, :WP)
+				Board.set_cell(x, y, "")
+			else
+				puts "Try again"
+				Piece.move_piece
+			end
 		end
 
 	end
 
 	class Rook < Piece 
 
-		def move(x, y, type) # DO AGAIN!!!!!!
+		def move(x, y, type) 
 			puts "Type CAPITAL 'X' or 'Y' depending on the direction you want to move"
 			direction = gets.chomp
 			if direction = "X"
 				puts "Give the new X coordinate"
 				new_x = gets.chomp
 				new_x = new_x.to_i
-				Piece.check_path(x, y, new_x, y)
-				Board.set_cell(new_x, y, type)
-				Board.set_cell(x, y, "")
+				if Piece.check_path(x, y, new_x, y)
+					Board.set_cell(new_x, y, type)
+					Board.set_cell(x, y, "")
+				else
+					puts "Try again"
+					Piece.move_piece
+				end
 			elsif direction = "Y"
 				puts "Give the new Y coordinate"
 				new_y = gets.chomp
 				new_y = new_y.to_i
-				Board.set_cell(x, new_y, type)
-				Board.set_cell(x, y, "")
+			  if Piece.check_path(x, y, x, new_y)
+					Board.set_cell(x, new_y, type)
+					Board.set_cell(x, y, "")
+				else
+					puts "Try again"
+					Piece.move_piece
+				end
 			else
 				puts "You made a mistake declaring the direction, try again"
 				Rook.move(x, y, type)
 			end	
 			
 		end
+
+	end
+
+	class Bishop < Piece
+
+		def move(x, y, type)
+			puts "Type the X coordinate you want to move to"
+			new_x = gets.chomp
+			new_x = new_x.to_i
+			puts "Type the Y coordinate you want to move to and make sure it is in diagonal"
+			new_y = gets.chomp
+			new_y = new_y.to_i
+			if Piece.check_path(x, y, new_x, new_y)
+				Board.set_cell(new_x, new_y, type)
+				Board.set_cell(x, y, "")
+			else
+				puts "Try again"
+				Piece.move_piece
+			end
+		end	
 
 	end
 
