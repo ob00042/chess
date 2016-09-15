@@ -16,6 +16,12 @@ module Chess
 			get_cell(x, y).value = value
 		end
 
+		def formatted_grid
+      grid.each do |row|
+        puts row.map { |cell| cell.value }.join(" ")
+      end
+    end
+
 		private
 
 		def default_grid

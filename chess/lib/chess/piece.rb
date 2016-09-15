@@ -430,7 +430,7 @@ module Chess
 		def move(x, y, type, board) 
 			puts "Type CAPITAL 'X' or 'Y' depending on the direction you want to move"
 			direction = gets.chomp
-			if direction = "X"
+			if direction == "X"
 				puts "Give the new X coordinate"
 				new_x = gets.chomp
 				new_x = new_x.to_i
@@ -441,7 +441,7 @@ module Chess
 					puts "Try again"
 					Piece.move_piece(board)
 				end
-			elsif direction = "Y"
+			elsif direction == "Y"
 				puts "Give the new Y coordinate"
 				new_y = gets.chomp
 				new_y = new_y.to_i
@@ -483,7 +483,7 @@ module Chess
 
 	class Knight < Piece
 
-		def move(x, y type, board)
+		def move(x, y, type, board)
 			cell_player = board.get_cell(x, y).player
 			possible_moves = []
 			position = [x, y]

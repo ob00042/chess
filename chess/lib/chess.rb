@@ -1,8 +1,4 @@
 require_relative "./chess/version.rb"
-# require "chess/game"
-# require "chess/board"
-# require "chess/cell"
-# require "chess/piece"
 
 module Chess
   # Your code goes here...
@@ -14,4 +10,4 @@ require_relative "./chess/piece.rb"
 require_relative "./chess/game.rb"
 lib_path = File.expand_path(File.dirname(__FILE__))
 Dir[lib_path + "/chess/**/*.rb"].each { |file| require file }
-require_relative "../../example/example.rb"
+require_relative "../example/example.rb"

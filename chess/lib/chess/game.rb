@@ -4,7 +4,7 @@ module Chess
 
 		attr_reader :board, :piece, :cell
 
-		def initialize(board = Borad.new, piece = Piece.new, cell = Cell.new)
+		def initialize(board = Board.new, piece = Piece.new, cell = Cell.new)
 			@board = board
 			@piece = piece
 			@cell = cell
@@ -38,12 +38,10 @@ module Chess
 		end
 
 		def play
-			puts @board
+			@board.formatted_grid
+
 		end
 
 	end
 
 end
-
-puts "Welcome to Chess"
-Game.new.play
