@@ -19,8 +19,12 @@ module Chess
 		def formatted_grid
 			i = 0
 			j = 0
+			puts [" ", 0, 1, 2, 3, 4, 5, 6, 7].join("  ")
       grid.each do |row|
-        puts row.map { |cell| cell.value }.join(" ")
+      	arr = [i]
+        row.map { |cell| arr << cell.value }
+        puts arr.join(" ")
+        i += 1
       end
     end
 
@@ -139,7 +143,7 @@ module Chess
 				if x == xx && y != yy # x is the same, y changes
 					z = y+1
 					while z < yy
-						if board.get_cell(x, z).value != ""
+						if board.get_cell(x, z).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -154,7 +158,7 @@ module Chess
 				elsif y == yy && x != xx # y is the same, x changes
 					z = x + 1
 					while x < xx
-						if board.get_cell(z, y).value != ""
+						if board.get_cell(z, y).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -174,7 +178,7 @@ module Chess
 						z = x + 1
 						m = y + 1
 						while z < xx && m < yy
-							if board.get_cell(z, m).value != ""
+							if board.get_cell(z, m).value != "  "
 								puts "You can't move there"
 								return false
 							end
@@ -193,7 +197,7 @@ module Chess
 				if x == xx && y != yy # x stays the same, y changes
 					z = y - 1
 					while z > yy
-						if board.get_cell(x, z).value != ""
+						if board.get_cell(x, z).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -208,7 +212,7 @@ module Chess
 				elsif y == yy && x != xx # y satys the same, x changes
 					z = x - 1
 					while z > xx
-						if board.get_cell(z, y).value != ""
+						if board.get_cell(z, y).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -228,7 +232,7 @@ module Chess
 						z = x - 1
 						m = y - 1
 						while z > xx && m > yy
-							if board.get_cell(z, m).value != ""
+							if board.get_cell(z, m).value != "  "
 								puts "You can't move there"
 								return false
 							end
@@ -247,7 +251,7 @@ module Chess
 				if x == xx && y != yy # x is the same, and y is smaller
 					z = y - 1
 					while z > yy
-						if board.get_cell(x, z).value != ""
+						if board.get_cell(x, z).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -262,7 +266,7 @@ module Chess
 				elsif y == yy && x != xx # y is the same and x is bigger
 					z = x + 1
 					while z < xx
-						if board.get_cell(z, y).value != ""
+						if board.get_cell(z, y).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -282,7 +286,7 @@ module Chess
 						z = x + 1
 						m = y - 1
 						while z < xx && m > yy
-							if board.get_cell(z, m).value != ""
+							if board.get_cell(z, m).value != "  "
 								puts "You can't move there"
 								return false
 							end
@@ -301,7 +305,7 @@ module Chess
 				if x == xx && y != yy # x is the same and y is bigger
 					z = y + 1
 					while z < yy
-						if board.get_cell(x, z).value != ""
+						if board.get_cell(x, z).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -316,7 +320,7 @@ module Chess
 				elsif y == yy && x != xx # y is the same and x is smaller
 					z = x - 1
 					while z > xx
-						if board.get_cell(z, y).value != ""
+						if board.get_cell(z, y).value != "  "
 							puts "You can't move there"
 							return false
 						end
@@ -336,7 +340,7 @@ module Chess
 						z = x - 1
 						m = y + 1
 						while z > xx && y < yy
-							if board.get_cell(z, m).value != ""
+							if board.get_cell(z, m).value != "  "
 								puts "You can't move there"
 								return false
 							end
