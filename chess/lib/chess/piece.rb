@@ -4,9 +4,40 @@ module Chess
 
 		attr_reader :color, :name, :white_king, :white_queen, :white_bishop, :white_knight, :white_rook, :white_pawn, :black_king, :black_queen, :black_bishop, :black_knight, :black_rook, :black_pawn
 
-		def initialize(color = "", name = "")
-			@color = color
-			@name = name
+		def initialize(board)
+			board.set_cell(0, 0, :BR)
+			board.set_cell(1, 0, :BK)
+			board.set_cell(2, 0, :BB)
+			board.set_cell(3, 0, :BG)
+			board.set_cell(4, 0, :BQ)
+			board.set_cell(5, 0, :BB)
+			board.set_cell(6, 0, :BK)
+			board.set_cell(7, 0, :BR)
+			board.set_cell(0, 1, :BP)
+			board.set_cell(1, 1, :BP)
+			board.set_cell(2, 1, :BP)
+			board.set_cell(3, 1, :BP)
+			board.set_cell(4, 1, :BP)
+			board.set_cell(5, 1, :BP)
+			board.set_cell(6, 1, :BP)
+			board.set_cell(7, 1, :BP)
+
+			board.set_cell(0, 7, :WR)
+			board.set_cell(1, 7, :WK)
+			board.set_cell(2, 7, :WB)
+			board.set_cell(3, 7, :WG)
+			board.set_cell(4, 7, :WQ)
+			board.set_cell(5, 7, :WB)
+			board.set_cell(6, 7, :WK)
+			board.set_cell(7, 7, :WR)
+			board.set_cell(0, 6, :WP)
+			board.set_cell(1, 6, :WP)
+			board.set_cell(2, 6, :WP)
+			board.set_cell(3, 6, :WP)
+			board.set_cell(4, 6, :WP)
+			board.set_cell(5, 6, :WP)
+			board.set_cell(6, 6, :WP)
+			board.set_cell(7, 6, :WP)
 		end
 
 		def create_pieces
@@ -68,20 +99,20 @@ module Chess
 			puts "Give the Y coordinate of the piece you want to move"
 			y = gets.chomp
 			y = y.to_i
-			piece_name = board.get_cell(x, y).vallue
+			piece_name = board.get_cell(x, y).value
 			case piece_name
-			when :WP then White_Pawn.move(x, y, board)
-			when :BP then Black_Pawn.moves(x, y, board)
-			when :WR then Rook.move(x, y, :WR, board)
-			when :BR then Rook.move(x, y, :BR, board)
-			when :WB then Bishop.move(x, y, :WB, board)
-			when :BB then Bishop.move(x, y, :BB, board)
-			when :WK then Knight.move(x, y, :WK, board)
-			when :BK then Knight.move(x, y, :BK, board)
-			when :WQ then Queen.move(x, y, :WQ, board)
-			when :BQ then Queen.move(x, y, :BQ, board)
-			when :WG then King.move(x, y, :WG, board)
-			when :BG then King.move(x, y, :BG, board)
+			when :WP then move_wp(x, y, board)
+			when :BP then move_bp(x, y, board)
+			when :WR then move_rook(x, y, :WR, board)
+			when :BR then move_rook(x, y, :BR, board)
+			when :WB then move_bishop(x, y, :WB, board)
+			when :BB then move_bishop(x, y, :BB, board)
+			when :WK then move_knight(x, y, :WK, board)
+			when :BK then move_knight(x, y, :BK, board)
+			when :WQ then move_queen(x, y, :WQ, board)
+			when :BQ then move_queen(x, y, :BQ, board)
+			when :WG then move_king(x, y, :WG, board)
+			when :BG then move_king(x, y, :BG, board)
 			else
 				puts "You chose an epmty cell, try again"
 				Piece.move_piece(board)
@@ -317,14 +348,14 @@ module Chess
 
 	class Black_Pawn < Piece # NEED TO ADD ATTACK!!!!!
 
-		def move(x, y, board)
+		def move_bp(x, y, board)
 			puts "You can move one cell ahead, or attack in a diagonal cell."
 			puts "If you want to move type CAPITAL 'M', else type CAPITAL 'A'."
 			input = gets.chomp
 			if input == "M"
 				Black_Pawn.move_black_pawn(x, y, board)
 			elsif input == "A"
-				Black_Pawn.attack(x, y, board)
+				Black_Pawn.attackBlack_pawn(x, y, board)
 			else
 				puts "You gave the wrong input."
 				Piece.move_piece(board)
@@ -341,7 +372,7 @@ module Chess
 			end
 		end
 
-		def attack(x, y, board)
+		def attack_black_pawn(x, y, board)
 			cell_player = board.get_cell(x, y).player
 			puts "Where do you want to attack, Right or Left? ('R'/'L')"
 			direction = gets.chomp
@@ -372,14 +403,14 @@ module Chess
 
 	class White_Pawn < Piece
 
-		def move(x, y, board)
+		def move_wp(x, y, board)
 			puts "You can move one cell ahead, or attack in a diagonal cell."
 			puts "If you want to move type CAPITAL 'M', else type CAPITAL 'A'."
 			input = gets.chomp
 			if input == "M"
 				White_Pawn.move_white_pawn(x, y, board)
 			elsif input == "A"
-				White_Pawn.attack(x, y, board)
+				White_Pawn.attack_white_pawn(x, y, board)
 			else
 				puts "You gave the wrong input."
 				Piece.move_piece(board)
@@ -396,7 +427,7 @@ module Chess
 			end
 		end
 
-		def attack(x, y, board)
+		def attack_white_pawn(x, y, board)
 			cell_player = board.get_cell(x, y).player
 			puts "Where do you want to attack, Right or Left? ('R'/'L')"
 			direction = gets.chomp
@@ -427,7 +458,7 @@ module Chess
 
 	class Rook < Piece 
 
-		def move(x, y, type, board) 
+		def move_rook(x, y, type, board) 
 			puts "Type CAPITAL 'X' or 'Y' depending on the direction you want to move"
 			direction = gets.chomp
 			if direction == "X"
@@ -463,7 +494,7 @@ module Chess
 
 	class Bishop < Piece
 
-		def move(x, y, type, board)
+		def move_bishop(x, y, type, board)
 			puts "Type the X coordinate you want to move to"
 			new_x = gets.chomp
 			new_x = new_x.to_i
@@ -483,7 +514,7 @@ module Chess
 
 	class Knight < Piece
 
-		def move(x, y, type, board)
+		def move_knight(x, y, type, board)
 			cell_player = board.get_cell(x, y).player
 			possible_moves = []
 			position = [x, y]
@@ -516,7 +547,7 @@ module Chess
 
 	class Queen < Piece
 
-		def move(x, y, type, board)
+		def move_queen(x, y, type, board)
 			puts "You can move the Queen in straight or diagonal lines"
 			puts "Give new X coordinate"
 			new_x = gets.chomp
@@ -534,7 +565,7 @@ module Chess
 
 	class King < Piece
 
-		def move(x, y, type, board)
+		def move_king(x, y, type, board)
 			puts "Careful when you move the King!"
 			cell_player = board.get_cell(x, y).player
 			possible_moves = []

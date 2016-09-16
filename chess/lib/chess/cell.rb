@@ -4,7 +4,7 @@ module Chess
 
 		attr_accessor :value, :player
 
-		def initialize(value = "")
+		def initialize(value = "  ")
 			@value = value
 			@player = :empty
 		end
@@ -18,13 +18,13 @@ module Chess
 		# 	end
 		# end
 
-		def cell_player
-			if self.value == :WP || self.value == :WR || self.value == :WK || self.value == :WB || self.value == :WG || self.value == :WQ
-				self.player = :player_white
-			elsif self.value == :BP || self.value == :BR || self.value == :BK || self.value == :BB || self.value == :BG || self.value == :BQ
-				self.player = :player_black
+		def cell_player(cell)
+			if cell.value == :WP || cell.value == :WR || cell.value == :WK || cell.value == :WB || cell.value == :WG || cell.value == :WQ
+				cell.player = :player_white
+			elsif cell.value == :BP || cell.value == :BR || cell.value == :BK || cell.value == :BB || cell.value == :BG || cell.value == :BQ
+				cell.player = :player_black
 			else
-				self.player = :empty
+				cell.player = :empty
 			end
 		end
 

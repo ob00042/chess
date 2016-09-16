@@ -4,11 +4,10 @@ module Chess
 
 		attr_reader :board, :piece, :cell
 
-		def initialize(board = Board.new, piece = Piece.new, cell = Cell.new)
+		def initialize(board = Board.new, cell = Cell.new)
 			@board = board
-			@piece = piece
 			@cell = cell
-			@piece.initial_positions(@board)
+			@board.initial_positions(@board)
 		end
 
 		def check_win(board = @board)
@@ -39,6 +38,19 @@ module Chess
 
 		def play
 			@board.formatted_grid
+			i = 0
+			while @board.check_win == false
+				@board.give_player
+				if i % 2 == 0
+					puts "Player White plays"
+				else
+					puts "Player Black plays"
+				end
+				i += 1
+				@board.move_piece(@board)
+				@board.formatted_grid
+			end
+
 
 		end
 
