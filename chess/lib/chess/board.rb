@@ -108,30 +108,36 @@ module Chess
 			board.set_cell(7, 6, :WP)
 		end
 
-		def move_piece(board)
+		def move_piece(board, player)
 			puts "Give the X coordinate of the piece you want to move"
 			x = gets.chomp
 			x = x.to_i
 			puts "Give the Y coordinate of the piece you want to move"
 			y = gets.chomp
 			y = y.to_i
-			piece_name = board.get_cell(x, y).value
-			case piece_name
-			when :WP then move_wp(x, y, board)
-			when :BP then move_bp(x, y, board)
-			when :WR then move_rook(x, y, :WR, board)
-			when :BR then move_rook(x, y, :BR, board)
-			when :WB then move_bishop(x, y, :WB, board)
-			when :BB then move_bishop(x, y, :BB, board)
-			when :WK then move_knight(x, y, :WK, board)
-			when :BK then move_knight(x, y, :BK, board)
-			when :WQ then move_queen(x, y, :WQ, board)
-			when :BQ then move_queen(x, y, :BQ, board)
-			when :WG then move_king(x, y, :WG, board)
-			when :BG then move_king(x, y, :BG, board)
+			piece_player = board.get_cell(x, y).player
+			if player == piece_player
+				piece_name = board.get_cell(x, y).value
+				case piece_name
+				when :WP then move_wp(x, y, board)
+				when :BP then move_bp(x, y, board)
+				when :WR then move_rook(x, y, :WR, board)
+				when :BR then move_rook(x, y, :BR, board)
+				when :WB then move_bishop(x, y, :WB, board)
+				when :BB then move_bishop(x, y, :BB, board)
+				when :WK then move_knight(x, y, :WK, board)
+				when :BK then move_knight(x, y, :BK, board)
+				when :WQ then move_queen(x, y, :WQ, board)
+				when :BQ then move_queen(x, y, :BQ, board)
+				when :WG then move_king(x, y, :WG, board)
+				when :BG then move_king(x, y, :BG, board)
+				else
+					puts "You chose an epmty cell, try again"
+					self.move_piece(board)
+				end
 			else
-				puts "You chose an epmty cell, try again"
-				self.move_piece(board)
+				puts "Pick a piece that is yours"
+				move_piece(board, player)
 			end
 		end
 
@@ -578,7 +584,7 @@ module Chess
 			puts "Chose a new Y coordinate"
 			new_y = gets.chomp
 			new_y = new_y.to_i
-			if possible_combinations.include? [new_x, new_y]
+			if possible_moves.include? [new_x, new_y]
 				board.set_cell(new_x, new_y, type)
 				board.set_cell(x, y, "  ")
 			else

@@ -42,12 +42,14 @@ module Chess
 			while @board.check_win == false
 				@board.give_player
 				if i % 2 == 0
+					player = :player_white
 					puts "Player White plays"
 				else
+					player = :player_black
 					puts "Player Black plays"
 				end
 				i += 1
-				@board.move_piece(@board)
+				@board.move_piece(@board, player)
 				@board.formatted_grid
 			end
 
